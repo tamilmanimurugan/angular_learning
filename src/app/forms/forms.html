@@ -1,59 +1,81 @@
-<div class="forms-page">
+<div class="forms">
 
-  <!--  Reactive Form -->
-  <div class="card">
-    <h2>Reactive Form</h2>
+  <div class="row g-4">
 
-    <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+    <!--  Reactive Form -->
+    <div class="col-md-6">
+      <div class="card shadow-lg p-4">
+        <h4 class="text-center mb-3">Reactive Form</h4>
 
-      <div class="input-group">
-        <input type="text" formControlName="username" placeholder="Username">
+        <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+
+          <!-- Username -->
+          <div class="mb-3">
+            <label class="form-label">Username</label>
+            <input type="text" class="form-control" formControlName="username">
+
+            <div class="text-danger mt-1"
+              *ngIf="myForm.get('username')?.invalid && myForm.get('username')?.touched">
+              Username is required
+            </div>
+          </div>
+
+          <!-- Password -->
+          <div class="mb-3">
+            <label class="form-label">Password</label>
+            <input type="password" class="form-control" formControlName="password">
+
+            <div class="text-danger mt-1"
+              *ngIf="myForm.get('password')?.invalid && myForm.get('password')?.touched">
+              Password is required
+            </div>
+          </div>
+
+          <button class="btn btn-primary w-100" type="submit">
+            Reactive Login
+          </button>
+
+        </form>
       </div>
+    </div>
 
-      <div class="error" *ngIf="f.form.get('username')?.invalid && f.form.get('username')?.touched">
-        Username is required
+    <!--  Template Form -->
+    <div class="col-md-6">
+      <div class="card shadow-lg p-4">
+        <h4 class="text-center mb-3">Template Form</h4>
+
+        <form #f="ngForm" (ngSubmit)="onTemplateSubmit(f)">
+
+          <!-- Username -->
+          <div class="mb-3">
+            <label class="form-label">Username</label>
+            <input type="text" class="form-control" name="username" ngModel required>
+
+            <div class="text-danger mt-1"
+              *ngIf="f.form.get('username')?.invalid && f.form.get('username')?.touched">
+              Username is required
+            </div>
+          </div>
+
+          <!-- Password -->
+          <div class="mb-3">
+            <label class="form-label">Password</label>
+            <input type="password" class="form-control" name="password" ngModel required>
+
+            <div class="text-danger mt-1"
+              *ngIf="f.form.get('password')?.invalid && f.form.get('password')?.touched">
+              Password is required
+            </div>
+          </div>
+
+          <button class="btn btn-success w-100" type="submit">
+            Template Login
+          </button>
+
+        </form>
       </div>
+    </div>
 
-      <div class="input-group">
-        <input type="password" formControlName="password" placeholder="Password">
-      </div>
-
-      <div class="error" *ngIf="f.form.get('password')?.invalid && f.form.get('password')?.touched">
-        Password is required
-      </div>
-
-      <button type="submit">Reactive Login</button>
-
-    </form>
-  </div>
-
-  <hr>
-
-  <!--  Template-driven Form -->
-  <div class="card">
-    <h2>Template Form</h2>
-
-    <form #f="ngForm" (ngSubmit)="onTemplateSubmit(f)">
-
-      <div class="input-group">
-        <input type="text" name="username" ngModel required placeholder="Username">
-      </div>
-
-       <div class="error" *ngIf="f.form.get('username')?.invalid && f.form.get('username')?.touched">
-        Username is required
-      </div>
-
-      <div class="input-group">
-        <input type="password" name="password" ngModel required placeholder="Password">
-      </div>
-
-      <div class="error" *ngIf="f.form.get('password')?.invalid && f.form.get('password')?.touched">
-        Password is required
-      </div>
-
-      <button type="submit">Template Login</button>
-
-    </form>
   </div>
 
 </div>
